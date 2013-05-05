@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="module" version="1.5.0">
+    <name>Attachment Stats</name>
+    <author>Jean-Pierre Schnyder</author>
+    <creationDate>January 20, 2010</creationDate>
+    <version>2.1</version>
+    <description>Attachment statistics display module</description>
+    <files>
+        <filename>mod_attachmentstats.xml</filename>
+        <filename module="mod_attachmentstats">mod_attachmentstats.php</filename>
+        <filename>index.html</filename>
+        <filename>helper.php</filename>
+        <filename>constants.php</filename>
+        <filename>tmpl/default.php</filename>
+        <filename>tmpl/index.html</filename>
+    </files>
+    <params>
+    </params>
+</install>
