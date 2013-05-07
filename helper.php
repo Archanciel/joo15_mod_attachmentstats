@@ -72,11 +72,13 @@ class modAttachmentStatsHelper {
     	/* @var $db JDatabase */
     	$db = JFactory::getDBO();
     	$log = JLog::getInstance("mod_attachmentstats_log.php");
-
-    	$count = $this->loadResult($db, $this->dailyStatsCountQuery);
+		$query = $this->dailyStatsCountQuery;
+    	
+    	$count = $this->loadResult($db, $query);
     	
     	if ($count > 0) {
-    		$maxDate = $this->loadResult($db, $this->dailyStatsMaxDateQuery);
+    		$query = $this->dailyStatsMaxDateQuery;
+    		$maxDate = $this->loadResult($db, $query);
     		$today = date("Y-m-d");
     		
     		if (strcmp($maxDate,$today) == 0) {
@@ -86,7 +88,8 @@ class modAttachmentStatsHelper {
     			return;
     		}
     		
-    		$rowsNumberForNewAttachments = $this->executeQuery($db, $this->dailyStatsForNewAttachmentsQuery);
+    		$query = $this->dailyStatsForNewAttachmentsQuery;
+    		$rowsNumberForNewAttachments = $this->executeQuery($db, $query);
     		
     		$gap = 0;
     		$rowsNumberForExistingAttachments = 0;
@@ -106,7 +109,8 @@ class modAttachmentStatsHelper {
 			$log->addEntry($entry);
     	} else {
        		// daily_stats table is empty and must be bootstraped
-	    	$rowsNumber = $this->executeQuery ( $db, $this->dailyStatsBootstrapQuery );
+       		$query= $this->dailyStatsBootstrapQuery;
+	    	$rowsNumber = $this->executeQuery ( $db, $query);
 //    		$this->executeQuery ( $db, $this->dailyStatsShiftDateQuery ); only for creating test data !!
 	    	
 			$entry = array ('LEVEL' => '1', 'STATUS' => 'INFO:', 'COMMENT' => "daily_stats table successfully bootstraped. $rowsNumber rows inserted");
@@ -160,13 +164,14 @@ class modAttachmentStatsHelper {
      	
      	$this->dailyStatsMaxDateQuery = "SELECT MAX(date) FROM #__daily_stats;";
      	
-     	$this->dailyStatsForNewAttachmentsQuery = "INSERT INTO #__daily_stats (article_id, attachment_id, date, total_hits_to_date, total_downloads_to_date) ".
-								"SELECT T1.article_id, T1.id, CURRENT_DATE, T2.hits, T1.download_count ".
-								"FROM #__attachments T1, #__content T2 ".
-								"WHERE T1.article_id = T2.id AND T1.id IN ( ".
-									"SELECT T1.id ".
-									"FROM #__attachments T1 LEFT JOIN #__daily_stats ON T1.id = #__daily_stats.attachment_id ".
-									"WHERE #__daily_stats.attachment_id IS NULL);";
+     	$this->dailyStatsForNewAttachmentsQuery = 
+       		"INSERT INTO #__daily_stats (article_id, attachment_id, date, total_hits_to_date, date_hits, total_downloads_to_date, date_downloads) 
+       			SELECT T1.article_id, T1.id, CURRENT_DATE, T2.hits, T2.hits, T1.download_count, T1.download_count 
+       			FROM #__attachments T1, #__content T2 
+       			WHERE T1.article_id = T2.id AND T1.id IN ( 
+       				SELECT T1.id 
+       				FROM #__attachments T1 LEFT JOIN #__daily_stats ON T1.id = #__daily_stats.attachment_id 
+       				WHERE #__daily_stats.attachment_id IS NULL);";
      }
 }
 
