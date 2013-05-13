@@ -77,6 +77,7 @@ class modAttachmentStatsHelper {
     	$count = $this->loadResult($db, $query);
     	
     	if ($count > 0) {
+    		// daily_stats table not empty
     		$query = $this->dailyStatsMaxDateQuery;
     		$maxDate = $this->loadResult($db, $query);
     		$today = date("Y-m-d");
@@ -88,10 +89,14 @@ class modAttachmentStatsHelper {
     			return;
     		}
     		
+    		// inserting daily_stats for neew attachments
+    		
     		$query = $this->dailyStatsForNewAttachmentsQuery;
     		$rowsNumberForNewAttachments = $this->executeQuery($db, $query);
     		
-    		$gap = 0;
+    		// inserting daily_stats for existing attachments
+    		
+    		$gap = 0;	// used to handle the case where cron execution was skipped the day(S) before 
     		$rowsNumberForExistingAttachments = 0;
     		
     		while ( $rowsNumberForExistingAttachments == 0	&&
