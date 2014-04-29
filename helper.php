@@ -161,23 +161,22 @@ class modAttachmentStatsHelper {
      	$this->dailyStatsBootstrapQuery = "INSERT INTO #__daily_stats (article_id, attachment_id, date, total_hits_to_date, total_downloads_to_date) ".
 						   "SELECT T1.article_id, T1.id, CURRENT_DATE, T2.hits, T1.download_count ".
 						   "FROM #__attachments T1, #__content T2 ".
-						   "WHERE T1.article_id = T2.id;";
+						   "WHERE T1.article_id = T2.id AND T2.state = 1;";
      	
      	$this->dailyStatsCountQuery = "SELECT COUNT(id) FROM #__daily_stats;";
      	
      	$this->dailyStatsShiftDateQuery = "UPDATE #__daily_stats SET date=DATE_SUB(date,INTERVAL 1 DAY);";
      	
-     	$this->dailyStatsMaxDateQuery = "SELECT MAX(date) FROM #__daily_stats;";
+     	$this->dailyStatsMaxDateQuery = "SELECT DATE_FORMAT(MAX(date),'%Y-%m-%d') FROM #__daily_stats;";
      	
      	$this->dailyStatsForNewAttachmentsQuery = 
        		"INSERT INTO #__daily_stats (article_id, attachment_id, date, total_hits_to_date, date_hits, total_downloads_to_date, date_downloads) 
        			SELECT T1.article_id, T1.id, CURRENT_DATE, T2.hits, T2.hits, T1.download_count, T1.download_count 
        			FROM #__attachments T1, #__content T2 
-       			WHERE T1.article_id = T2.id AND T1.id IN ( 
+       			WHERE T1.article_id = T2.id AND T2.state = 1 AND T1.id IN ( 
        				SELECT T1.id 
        				FROM #__attachments T1 LEFT JOIN #__daily_stats ON T1.id = #__daily_stats.attachment_id 
        				WHERE #__daily_stats.attachment_id IS NULL);";
      }
 }
-
 ?>
