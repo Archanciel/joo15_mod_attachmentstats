@@ -19,12 +19,6 @@ if (!defined('MOD_ATTACHMENTSTATS_BASE')) {
 
 // Include the syndicate functions only once
 require_once( MOD_ATTACHMENTSTATS_BASE.DS.'helper.php' );
-
-$cron = JRequest::getVar ( 'cron' , 'no' );
-
-if (strcmp($cron,'yes') == 0) {
-	modAttachmentStatsHelper::getInstance()->execDailyStatsCron();
-}
  
 $stats_array = modAttachmentStatsHelper::getInstance()->getStats( $params );
 require( JModuleHelper::getLayoutPath( 'mod_attachmentstats' ) );
