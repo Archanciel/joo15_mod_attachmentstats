@@ -28,14 +28,38 @@ class modAttachmentStatsHelper {
 	
     /**
      * Retrieves the attachment stats.
-     *
-     * @param array $params An object containing the module parameters
+     * 
+     * Queries documentation:
+     * 
+     * user_field_2 == ignore_count:	if value is 1, means do not include this line for computing the 
+     * 								total number of recordings.
+     * user_field_3 == ignore_length:	if value is 1, means do not include this line for computing the
+     * 								total recording length and size.
+     * 
+     * Example:
+     * 
+     * 													(user_field_2)	(user_field_3)
+     * 													ignore_count	ignore_length
+     * 
+     * Malvoyant, et exceptionnel: partial attachment 1		empty			empty
+     * 							   partial attachment 2		  1				empty
+     * 
+     * Le pouvoir du moment prés:  full attachment			empty			empty
+     * 							   partial attachment 1		  1				  1
+     * 							   partial attachment n		  1				  1
      */    
-    public function getStats( $params ) {
-    	/* @var $db JDatabase */
-    	$db = JFactory::getDBO();
+    public function getStats( $attachmentsTableName ) {
+    	if (!isset($attachmentsTableName)) {
+    		$attachmentsTableName = '#__attachments';
+    	}
     	
-    	$db->setQuery($this->countQuery);
+       	/* @var $db JDatabase */
+    	$db = JFactory::getDBO();
+    	$countQuery =  "SELECT COUNT(filename) AS R_COUNT, SUM(download_count) AS DL_COUNT
+				    	FROM $attachmentsTableName AS a
+    					WHERE a.published = 1 AND a.user_field_2 = '';";
+    	 
+    	$db->setQuery($countQuery);
     	$assoc = $db->loadAssoc();
     	
     	if( $db->getErrorNum () ) {
@@ -53,8 +77,12 @@ class modAttachmentStatsHelper {
     	} else {
     		$isDataCollected = FALSE;
     	}
-    	
-    	$db->setQuery($this->lengthAndSizeQuery);
+
+    	$lengthAndSizeQuery =  "SELECT SUM(user_field_1) / 60 AS TOT_TIME, SUM(file_size) / 1000000 AS TOT_SIZE
+						    	FROM $attachmentsTableName AS a
+						    	WHERE a.published = 1 AND a.user_field_3 = '';";
+    	 
+    	$db->setQuery($lengthAndSizeQuery);
     	$assoc = $db->loadAssoc();
     	
     	if( $db->getErrorNum () ) {
@@ -81,30 +109,7 @@ class modAttachmentStatsHelper {
        	}
      }
 	
-     /**
-      * user_field_2 == ignore_count:	if value is 1, means do not include this line for computing the 
-      * 								total number of recordings.
-      * user_field_3 == ignore_length:	if value is 1, means do not include this line for computing the
-      * 								total recording length and size.
-      * 
-      * Example:
-      * 
-      * 													ignore_count	ignore_length
-      * 
-      * Malvoyant, et exceptionnel: partial attachment 1		empty			empty
-      * 							partial attachment 2		  1				empty
-      * 
-      * Le pouvoir du moment prés:	full attachment				empty			empty
-      * 							partial attachment 1		  1				  1
-      * 							partial attachment n		  1				  1
-      */
      private function __construct() {
-     	$this->countQuery = "SELECT COUNT(filename) AS R_COUNT, SUM(download_count) AS DL_COUNT   
-							 FROM #__attachments AS a 
-     						 WHERE a.user_field_2 = '';";
-     	$this->lengthAndSizeQuery = "SELECT SUM(user_field_1) / 60 AS TOT_TIME, SUM(file_size) / 1000000 AS TOT_SIZE 
-							 		FROM #__attachments AS a 
-     						 		WHERE a.user_field_3 = '';";
      }
 }
 ?>
