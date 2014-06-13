@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE dataset SYSTEM "dataset.dtd">
+<dataset>
+	<table name="jos_content_cron_test">
+		<column>id</column>
+		<column>title</column>
+		<column>alias</column>
+		<column>title_alias</column>
+		<column>introtext</column>
+		<column>fulltext</column>
+		<column>state</column>
+		<column>sectionid</column>
+		<column>mask</column>
+		<column>catid</column>
+		<column>created</column>
+		<column>created_by</column>
+		<column>created_by_alias</column>
+		<column>modified</column>
+		<column>modified_by</column>
+		<column>checked_out</column>
+		<column>checked_out_time</column>
+		<column>publish_up</column>
+		<column>publish_down</column>
+		<column>images</column>
+		<column>urls</column>
+		<column>attribs</column>
+		<column>version</column>
+		<column>parentid</column>
+		<column>ordering</column>
+		<column>metakey</column>
+		<column>metadesc</column>
+		<column>access</column>
+		<column>hits</column>
+		<column>metadata</column>
+		<row>
+			<!--  Article with 1 published and 1 unpublished attached file -->
+			<value>1</value> <!-- id -->
+			<value>A</value> <!-- title -->
+			<value>a</value> <!-- alias -->
+			<value></value> <!-- title_alias -->
+			<value>Introtext</value> <!-- introtext -->
+			<value>Fulltext</value> <!-- fulltext -->
+			<value>1</value> <!-- state -->
+			<value>0</value> <!-- sectionid -->
+			<value>0</value> <!-- mask -->
+			<value>0</value> <!-- catid -->
+			<value>2009-06-22 11:17:24</value> <!-- created -->
+			<value>42</value> <!-- created_by -->
+			<value></value> <!-- created_by_alias -->
+			<value>0000-00-00 00:00:00</value> <!-- modified -->
+			<value>0</value> <!-- modified_by -->
+			<value>0</value> <!-- checked_out -->
+			<value>0000-00-00 00:00:00</value> <!-- checked_out_time -->
+			<value>0000-00-00 00:00:00</value> <!-- publish_up -->
+			<value>0000-00-00 00:00:00</value> <!-- publish_down -->
+			<value></value> <!-- images -->
+			<value></value> <!-- urls -->
+			<value>{"show_title":"","link_titles":"","show_intro":"","show_category":"","link_category":"","article-allow_ratings":"","article-allow_comments":"","show_author":"","show_create_date":"","show_modify_date":"","show_print_icon":"","show_email_icon":"","readmore":"","page_title":"","layout":""}</value> <!-- attribs -->
+			<value>1</value> <!-- version -->
+			<value>0</value> <!-- parentid -->
+			<value>0</value> <!-- ordering -->
+			<value></value> <!-- metakey -->
+			<value></value> <!-- metadesc -->
+			<value>1</value> <!-- access -->
+			<value>111</value> <!-- hits -->
+			<value>{"robots":"","author":""}</value> <!-- metadata -->
+		</row>
+	</table>
+	<table name="jos_attachments_mod_attachmentstats_test">
+		<column>id</column>
+		<column>filename</column>
+		<column>filename_sys</column>
+		<column>file_type</column>
+		<column>file_size</column>
+		<column>icon_filename</column>
+		<column>display_name</column>
+		<column>description</column>
+		<column>url</column>
+		<column>uploader_id</column>
+		<column>parent_id</column>
+		<column>published</column>
+		<column>user_field_1</column>
+		<column>user_field_2</column>
+		<column>user_field_3</column>
+		<column>create_date</column>
+		<column>modification_date</column>
+		<column>download_count</column>
+		<row>
+			<!-- Published attachment for article 1 -->
+			<value>10001</value> <!-- id -->
+			<value></value> <!-- filename -->
+			<value></value> <!-- filename_sys -->
+			<value></value> <!-- file_type -->
+			<value>10000000</value> <!-- file_size -->
+			<value></value> <!-- icon_filename -->
+			<value></value> <!-- display_name -->
+			<value></value> <!-- description -->
+			<value></value> <!-- url -->
+			<value>0</value> <!-- uploader_id -->
+			<value>1</value> <!-- parent_id -->
+			<value>1</value> <!-- published -->
+			<value>100</value> <!-- user_field_1 -->
+			<value></value> <!-- user_field_2 -->
+			<value></value> <!-- user_field_3 -->
+			<value>2009-07-23 20:49:28</value> <!-- create_date -->
+			<value>2009-07-23 20:49:28</value> <!-- modification_date -->
+			<value>10</value> <!-- download_count -->
+		</row>
+		<row>
+			<!-- Unpublished attachment for article 1 -->
+			<value>10002</value> <!-- id -->
+			<value></value> <!-- filename -->
+			<value></value> <!-- filename_sys -->
+			<value></value> <!-- file_type -->
+			<value>11000</value> <!-- file_size -->
+			<value></value> <!-- icon_filename -->
+			<value></value> <!-- display_name -->
+			<value></value> <!-- description -->
+			<value></value> <!-- url -->
+			<value>0</value> <!-- uploader_id -->
+			<value>1</value> <!-- parent_id -->
+			<value>0</value> <!-- published -->
+			<value>111</value> <!-- user_field_1 -->
+			<value></value> <!-- user_field_2 -->
+			<value></value> <!-- user_field_3 -->
+			<value>2009-07-23 20:49:28</value> <!-- create_date -->
+			<value>2009-07-23 20:49:28</value> <!-- modification_date -->
+			<value>11</value> <!-- download_count -->
+		</row>
+	</table>
+</dataset>
