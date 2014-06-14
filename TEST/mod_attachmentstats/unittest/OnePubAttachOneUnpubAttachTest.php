@@ -17,8 +17,8 @@ class OnePubAttachOneUnpubAttachTest extends ModAttachmentstatsTestBase {
      * 1 published and 1 unpublished attachments.
 	 */
 	public function testGetStats1PubAttach1UnpubAttach() { 
-		$stats_array = modAttachmentStatsHelper::getInstance()->getStats('#__attachments_mod_attachmentstats_test');
-
+		$stats_array = modAttachmentStatsHelper::getInstance()->getStats(NULL, '#__attachments_mod_attachmentstats_test');
+		
 		$this->assertEquals(sizeof($stats_array),4);
  		$this->assertEquals(1,$stats_array[REC_COUNT_POS],'rec counts');
  		$this->assertEquals(10,$stats_array[DOWNLOAD_COUNT_POS],'download counts');

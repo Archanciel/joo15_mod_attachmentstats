@@ -20,6 +20,6 @@ if (!defined('MOD_ATTACHMENTSTATS_BASE')) {
 // Include the syndicate functions only once
 require_once( MOD_ATTACHMENTSTATS_BASE.DS.'helper.php' );
  
-$stats_array = modAttachmentStatsHelper::getInstance()->getStats( $params );
+$stats_array = modAttachmentStatsHelper::getInstance()->getStats( $params, NULL );
 require( JModuleHelper::getLayoutPath( 'mod_attachmentstats' ) );
 ?>

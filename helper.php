@@ -32,9 +32,9 @@ class modAttachmentStatsHelper {
      * Queries documentation:
      * 
      * user_field_2 == ignore_count:	if value is 1, means do not include this line for computing the 
-     * 								total number of recordings.
+     * 									total number of recordings and total download count.
      * user_field_3 == ignore_length:	if value is 1, means do not include this line for computing the
-     * 								total recording length and size.
+     * 									total recording length and size.
      * 
      * Example:
      * 
@@ -47,8 +47,12 @@ class modAttachmentStatsHelper {
      * Le pouvoir du moment prés:  full attachment			empty			empty
      * 							   partial attachment 1		  1				  1
      * 							   partial attachment n		  1				  1
-     */    
-    public function getStats( $attachmentsTableName ) {
+	 * 
+	 * @param JParameters $params
+	 * @param Sting $attachmentsTableName
+	 * @return  associative array
+	 */
+    public function getStats($params, $attachmentsTableName) {
     	if (!isset($attachmentsTableName)) {
     		$attachmentsTableName = '#__attachments';
     	}
